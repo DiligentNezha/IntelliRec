@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.context.ApplicationContext;
@@ -33,11 +34,27 @@ public class DataCopyTest {
 	private static List<String> fileIds = new ArrayList<>();
 	private static List<List<Integer>> fileIdsList = new ArrayList<>();
 
+	@Ignore
 	@Before
 	public void setUp() throws Exception {
 		ac = new ClassPathXmlApplicationContext("applicationContext.xml");
 		crs = (CommentRecordService) ac.getBean("commentRecordService");
 
+	}
+
+	/**
+	 * 引用 videoId 列字段值更新
+	 * @throws Exception
+	 */
+	@Test
+	public void refVideoIdUpdate() throws Exception {
+		String sql = "select id, old_id from t_video";
+		ResultSet rs = dataQuery(sql);
+		while (rs.next()) {
+			int id = rs.getInt(1);
+			int oldId = rs.getInt(2);
+			System.out.println("update t_comment_record set video_comment_record_id = " + id + " where video_comment_record_id = " + oldId + ";");
+		}
 	}
 
 	/**

@@ -30,7 +30,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	/**
 	 * 获取泛型类实例的类信息
 	 */
-	private Class<T> clazz;
+	protected Class<T> clazz;
 
 	/**
 	 * 默认构造器，通过反射获取泛型类实例的类信息并赋值给clazz

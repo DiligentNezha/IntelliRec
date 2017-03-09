@@ -14,8 +14,10 @@
 		<property name="hibernate.format_sql">true</property>
 
 		<!-- 生成数据表的策略 -->
-		<property name="hibernate.hbm2ddl.auto">create-drop</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
 
+		<!-- 最大获检索深度 -->
+		<property name="max_fetch_depth">0</property>
 		<!-- 二级缓存相关 -->
 	</session-factory>
 
