@@ -11,7 +11,7 @@ import java.util.Date;
  * 用户推荐视频实体类
  */
 @Entity
-@Table(name = "t_user_recommend")
+@Table(name = "t_user_recommend_record")
 public class UserRecommend extends BaseEntity {
 	/**
 	 * 代理主键
