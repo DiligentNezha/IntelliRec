@@ -1,5 +1,7 @@
 package io.vicp.goradical.intellirec.dao;
 
+import org.hibernate.Session;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -253,5 +255,7 @@ public interface BaseDao<T> {
 	 * @return 实体对象
 	 */
 	T getFirstEntity(String hql, Map<String, Object> params);
+
+	Session getCurrentSession();
 
 }
