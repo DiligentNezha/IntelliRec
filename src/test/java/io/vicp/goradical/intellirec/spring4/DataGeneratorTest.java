@@ -5,10 +5,7 @@ import io.vicp.goradical.intellirec.dao.VideoDao;
 import io.vicp.goradical.intellirec.model.pmrs.Video;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +40,7 @@ public class DataGeneratorTest extends AbstractTransactionalJUnit4SpringContextT
 	private OutputStreamWriter oswRecommend;
 	private OutputStreamWriter oswCollect;
 
+	@Ignore
 	@Before
 	public void setUp() throws Exception {
 		oswPlay = new OutputStreamWriter(new FileOutputStream("E:/sql/play_record.sql"));
@@ -57,6 +55,7 @@ public class DataGeneratorTest extends AbstractTransactionalJUnit4SpringContextT
 		oswCollect.write("SET FOREIGN_KEY_CHECKS=0;\n");
 	}
 
+	@Ignore
 	@After
 	public void tearDown() throws Exception {
 		oswPlay.write("SET FOREIGN_KEY_CHECKS=1;");
@@ -80,6 +79,7 @@ public class DataGeneratorTest extends AbstractTransactionalJUnit4SpringContextT
 		oswCollect.close();
 	}
 
+	@Ignore
 	@Test
 	public void dataGenerator() throws Exception {
 		int end = 3275;
