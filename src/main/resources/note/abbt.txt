@@ -1,0 +1,4 @@
+//命名缩写规范
+功能			原名称                  缩写名称
+后台			background                 bg
+组件			Component                  compon
