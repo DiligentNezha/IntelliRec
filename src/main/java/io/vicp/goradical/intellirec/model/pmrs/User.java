@@ -12,7 +12,9 @@ import java.util.Set;
  * 用户实体类
  */
 @Entity
-@Table(name = "t_user")
+@Table(name = "t_user", indexes = {
+		@Index(name = "fk_email", columnList = "email", unique = true),
+		@Index(name = "fk_password", columnList = "password")})
 public class User extends BaseEntity{
 	/**
 	 * 代理主键
@@ -38,11 +40,13 @@ public class User extends BaseEntity{
 	/**
 	 * email
 	 */
+	@Column(length = 30)
 	private String email;
 
 	/**
 	 * 密码
 	 */
+	@Column(length = 30)
 	private String password;
 
 	/**
