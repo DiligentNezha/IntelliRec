@@ -13,7 +13,8 @@
 	<!-- 自动扫描包 -->
 	<context:component-scan base-package="io.vicp.goradical.intellirec.dao.impl,
 										io.vicp.goradical.intellirec.service.impl,
-										io.vicp.goradical.intellirec.spring4"></context:component-scan>
+										io.vicp.goradical.intellirec.spring4,
+										io.vicp.goradical.intellirec.struts2.action"></context:component-scan>
 
 	<!-- 配置 druid 数据源 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
