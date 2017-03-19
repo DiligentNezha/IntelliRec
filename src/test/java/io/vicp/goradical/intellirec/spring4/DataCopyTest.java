@@ -11,8 +11,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,8 +38,8 @@ public class DataCopyTest {
 	@Ignore
 	@Before
 	public void setUp() throws Exception {
-		ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-		crs = (CommentRecordService) ac.getBean("commentRecordService");
+//		ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		crs = (CommentRecordService) ac.getBean("commentRecordService");
 
 	}
 
@@ -214,5 +215,19 @@ public class DataCopyTest {
 			String sql = "delete from t_file_info where file_info_id in " + ListTool.convertListToString(fileIdsList.get(i));
 			dataDelete(sql);
 		}
+	}
+
+
+	@Test
+	public void userUpdate() throws Exception {
+		OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("E:/sql/user_update.sql"));
+		int end = 2057344;
+		for (int i = 1; i < end; i++) {
+			String temp = String.format("'88%07d", i);
+			String sql = "update t_user set email = " + temp + "@qq.com', password = 'root' where id = " + i + ";\n";
+			osw.write(sql);
+		}
+		osw.flush();
+		osw.close();
 	}
 }
