@@ -377,7 +377,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 *
 	 * @return
 	 */
-	protected Session getCurrentSession() {
+	public Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
@@ -406,4 +406,5 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			}
 		}
 	}
+
 }

@@ -1,12 +1,10 @@
 package io.vicp.goradical.intellirec.dao.impl;
 
 import io.vicp.goradical.intellirec.dao.UserDao;
-import io.vicp.goradical.intellirec.model.pmrs.CommentRecord;
 import io.vicp.goradical.intellirec.model.pmrs.User;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
-import java.util.Set;
+import java.util.HashMap;
 
 /**
  * Created by Kenny on 2017/3/6.
@@ -15,10 +13,13 @@ import java.util.Set;
 public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
 	@Override
-	public Set<CommentRecord> getCommentRecords(Serializable id) {
-		User user = getEntity(id);
-		Set<CommentRecord> commentRecords = user.getCommentRecords();
-		commentRecords.size();
-		return commentRecords;
+	public User login(String email, String password) {
+		String hql = "from User u where u.email = :email and u.password = :password";
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("email", email);
+		params.put("password", password);
+		User user = getFirstEntity(hql, params);
+		return user;
 	}
+
 }
