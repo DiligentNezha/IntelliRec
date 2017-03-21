@@ -15,11 +15,11 @@ import java.util.Map;
  * 抽象的BaseService,专门用于继承
  * @param <T>
  */
-public abstract class BaseServiceImpl<T> implements BaseService<T> {
+public class BaseServiceImpl<T> implements BaseService<T> {
 
 	//注入dao
 	@Autowired
-	private BaseDao<T> dao;
+	private BaseDao<T> baseDao;
 
 	private Class<T> clazz;
 
@@ -37,7 +37,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public T loadEntity(Serializable id) {
-		return dao.loadEntity(id);
+		return baseDao.loadEntity(id);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public Serializable saveEntity(T t) {
-		return dao.saveEntity(t);
+		return baseDao.saveEntity(t);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public void saveOrUpdateEntity(T t) {
-		dao.saveOrUpdateEntity(t);
+		baseDao.saveOrUpdateEntity(t);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public void updateEntity(T t) {
-		dao.updateEntity(t);
+		baseDao.updateEntity(t);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public T mergeEntity(T t) {
-		return dao.mergeEntity(t);
+		return baseDao.mergeEntity(t);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public void persistEntity(T t) {
-		dao.persistEntity(t);
+		baseDao.persistEntity(t);
 	}
 
 	/**
@@ -99,7 +99,17 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public void deleteEntity(T t) {
-		dao.deleteEntity(t);
+		baseDao.deleteEntity(t);
+	}
+
+	/**
+	 * 根据对象id删除实体对象
+	 *
+	 * @param id 序列化实体id
+	 */
+	@Override
+	public void deleteEntity(Serializable id) {
+		baseDao.deleteEntity(id);
 	}
 
 	/**
@@ -109,7 +119,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public void refreshEntity(T t) {
-		dao.refreshEntity(t);
+		baseDao.refreshEntity(t);
 	}
 
 	/**
@@ -120,7 +130,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public T getEntity(Serializable id) {
-		return dao.getEntity(id);
+		return baseDao.getEntity(id);
 	}
 
 	/**
@@ -130,7 +140,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public int batchEntityByHQL(String hql) {
-		return dao.batchEntityByHQL(hql);
+		return baseDao.batchEntityByHQL(hql);
 	}
 
 	/**
@@ -141,7 +151,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public int batchEntityByHQL(String hql, Object... objects) {
-		return dao.batchEntityByHQL(hql, objects);
+		return baseDao.batchEntityByHQL(hql, objects);
 	}
 
 	/**
@@ -152,7 +162,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public int batchEntityByHQL(String hql, Map<String, Object> params) {
-		return dao.batchEntityByHQL(hql, params);
+		return baseDao.batchEntityByHQL(hql, params);
 	}
 
 	/**
@@ -163,7 +173,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public int executeSQL(String sql) {
-		return dao.executeSQL(sql);
+		return baseDao.executeSQL(sql);
 	}
 
 	/**
@@ -175,7 +185,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public int executeSQL(String sql, Object... objects) {
-		return dao.executeSQL(sql, objects);
+		return baseDao.executeSQL(sql, objects);
 	}
 
 	/**
@@ -186,7 +196,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public List<T> findEntityByHQL(String hql) {
-		return dao.findEntityByHQL(hql);
+		return baseDao.findEntityByHQL(hql);
 	}
 
 	/**
@@ -199,7 +209,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public List<T> findEntityByHQL(String hql, int page, int rows) {
-		return dao.findEntityByHQL(hql, page, rows);
+		return baseDao.findEntityByHQL(hql, page, rows);
 	}
 
 	/**
@@ -211,7 +221,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public List<T> findEntityByHQL(String hql, Object... objects) {
-		return dao.findEntityByHQL(hql, objects);
+		return baseDao.findEntityByHQL(hql, objects);
 	}
 
 	/**
@@ -223,7 +233,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public List<T> findEntityByHQL(String hql, Map<String, Object> params) {
-		return dao.findEntityByHQL(hql, params);
+		return baseDao.findEntityByHQL(hql, params);
 	}
 
 	/**
@@ -237,7 +247,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public List<T> findEntityByHQL(String hql, Map<String, Object> params, int page, int rows) {
-		return dao.findEntityByHQL(hql, params, page, rows);
+		return baseDao.findEntityByHQL(hql, params, page, rows);
 	}
 
 	/**
@@ -248,7 +258,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public Object uniqueResult(String hql) {
-		return dao.uniqueResult(hql);
+		return baseDao.uniqueResult(hql);
 	}
 
 	/**
@@ -260,7 +270,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public Object uniqueResult(String hql, Object... objects) {
-		return dao.uniqueResult(hql, objects);
+		return baseDao.uniqueResult(hql, objects);
 	}
 
 	/**
@@ -272,7 +282,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public Object uniqueResult(String hql, Map<String, Object> params) {
-		return dao.uniqueResult(hql, params);
+		return baseDao.uniqueResult(hql, params);
 	}
 
 	/**
@@ -284,7 +294,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public List executeSQLQuery(Class clazz, String sql) {
-		return dao.executeSQLQuery(clazz, sql);
+		return baseDao.executeSQLQuery(clazz, sql);
 	}
 
 	/**
@@ -297,7 +307,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public List executeSQLQuery(Class clazz, String sql, Object... objects) {
-		return dao.executeSQLQuery(clazz, sql, objects);
+		return baseDao.executeSQLQuery(clazz, sql, objects);
 	}
 
 	/**
@@ -308,7 +318,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public T getFirstEntity(String hql) {
-		return dao.getFirstEntity(hql);
+		return baseDao.getFirstEntity(hql);
 	}
 
 	/**
@@ -320,7 +330,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public T getFirstEntity(String hql, Object... objects) {
-		return dao.getFirstEntity(hql, objects);
+		return baseDao.getFirstEntity(hql, objects);
 	}
 
 	/**
@@ -332,7 +342,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public T getFirstEntity(String hql, Map<String, Object> params) {
-		return dao.getFirstEntity(hql, params);
+		return baseDao.getFirstEntity(hql, params);
 	}
 
 	/**

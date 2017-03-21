@@ -65,6 +65,12 @@ public interface BaseService<T> {
 	void deleteEntity(T t);
 
 	/**
+	 * 根据对象id删除实体对象
+	 * @param id 序列化实体id
+	 */
+	void deleteEntity(Serializable id);
+
+	/**
 	 * 刷新实体对象
 	 *
 	 * @param t 泛型化的实体对象 t
