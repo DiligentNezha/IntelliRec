@@ -5,7 +5,8 @@
   <jsp:include page="../proadmin/common/head.jsp"/>
   <meta name="description" content="用户信息管理">
   <title>用户信息管理</title>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/background/proadmin/assets/js/mytableutil.js"></script>
+  <script type="text/javascript"
+          src="${pageContext.request.contextPath}/background/proadmin/assets/js/mytableutil.js"></script>
   <script>
     $(function () {
       var columns = [{filed: 'id', title: '用户编号'},
@@ -26,7 +27,7 @@
         getDataFromServer(table, '${pageContext.request.contextPath}/userManager/userManagerAction!tableData',
           params, columns, pager);
       };
-      
+
       search = function () {
         var params = getParams();
         params.page = 1;
@@ -34,8 +35,8 @@
         getDataFromServer(table, '${pageContext.request.contextPath}/userManager/userManagerAction!tableData',
           params, columns, pager);
       }
-      
-      previousPage = function(params) {
+
+      previousPage = function (params) {
         var params = getParams();
         var currentPage = pager.find('span').last().attr("title");
         var number = Number(currentPage);
@@ -74,9 +75,30 @@
       };
 
       userEdit = function (id) {
-        console.info('edit' + id);
+        var $udig = $('#bg_user_usereditformdialog');
+        var $inputs = $('#bg_user_usereditformdialog input');
+        var userId = id;
+        $.get('${pageContext.request.contextPath}/userManager/userManagerAction!getUser',
+          {id: userId},
+          function (data) {
+            $inputs.eq(1).attr('value', data.email).focus().on('');
+            $inputs.eq(0).attr('value', data.userName).focus();
+            var $btns = $('#bg_user_usereditformdialog .pmd-modal-action button');
+            $btns.eq(0).on('click', function () {
+              var userNameTemp = $inputs.eq(0).val();
+              var emailTemp = $inputs.eq(1).val();
+              $.post('${pageContext.request.contextPath}/userManager/userManagerAction!updateUser', {
+                id: userId,
+                userName: userNameTemp,
+                email: emailTemp
+              }, function () {
+                getDataFromServer(table, '${pageContext.request.contextPath}/userManager/userManagerAction!tableData',
+                  null, columns, pager);
+              });
+            });
+          }
+        );
       };
-      
       userDelete = function (id) {
         console.info('delete' + id);
       };
@@ -102,17 +124,20 @@
 <div id="content" class="pmd-content inner-page">
   <!--tab start-->
   <div class="container-fluid full-width-container value-added-detail-page">
+    <!-- Search -->
     <div>
       <div id="bg_user_search" class="pull-right table-title-top-action">
         <div class="row">
           <div class="col-sm-5">
             <div class="form-group pmd-textfield pmd-textfield-floating-label">
-              <input class="form-control" id="exampleInputEmail2" type="text" placeholder="用户名"><span class="pmd-textfield-focused"></span>
+              <input class="form-control" id="exampleInputEmail2" type="text" placeholder="用户名"><span
+                    class="pmd-textfield-focused"></span>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="form-group pmd-textfield pmd-textfield-floating-label">
-              <input class="form-control" id="exampleInputPassword2" type="text" placeholder="邮箱"><span class="pmd-textfield-focused"></span>
+              <input class="form-control" id="exampleInputPassword2" type="text" placeholder="邮箱"><span
+                    class="pmd-textfield-focused"></span>
             </div>
           </div>
           <div class="col-sm-3">
@@ -154,8 +179,43 @@
 			  </span>
         <span></span>
         <a href="javascript:previousPage();" aria-label="Previous"><i class="material-icons md-dark pmd-sm">keyboard_arrow_left</i></a>
-        <a href="javascript:nextPage();" aria-label="Next"><i class="material-icons md-dark pmd-sm">keyboard_arrow_right</i></a>
+        <a href="javascript:nextPage();" aria-label="Next"><i
+                class="material-icons md-dark pmd-sm">keyboard_arrow_right</i></a>
       </ul>
+    </div>
+    
+    <!-- Modal -->
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div tabindex="-1" class="modal fade" id="bg_user_usereditformdialog" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog" style="margin-top: 0px;">
+            <div class="modal-content">
+              <div class="modal-header bordered">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h2 class="pmd-card-title-text">用户信息编辑</h2>
+              </div>
+              <div class="modal-body">
+                <form class="form-horizontal">
+                  <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                    <label for="name">Name</label>
+                    <input type="text" class="mat-input form-control" id="name" value=""><span
+                          class="pmd-textfield-focused"></span>
+                  </div>
+                  <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                    <label for="email">Email Address</label>
+                    <input type="text" class="mat-input form-control" id="email" value=""><span
+                          class="pmd-textfield-focused"></span>
+                  </div>
+                </form>
+              </div>
+              <div class="pmd-modal-action">
+                <button data-dismiss="modal" class="btn pmd-ripple-effect btn-primary" type="button">修改</button>
+                <button data-dismiss="modal" class="btn pmd-ripple-effect btn-default" type="button">取消</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
