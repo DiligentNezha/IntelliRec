@@ -1,5 +1,6 @@
 package io.vicp.goradical.intellirec.service.impl;
 
+import io.vicp.goradical.intellirec.model.pmrs.User;
 import io.vicp.goradical.intellirec.model.pmrs.vo.TableVo;
 import io.vicp.goradical.intellirec.model.pmrs.vo.UserVo;
 import io.vicp.goradical.intellirec.service.UserService;
@@ -39,6 +40,20 @@ public class UserServiceImplTest {
 		for (UserVo vo : userVoTableVo.getRows()) {
 			LOG.info(vo);
 		}
+	}
+
+	@Test
+	public void getEntity() throws Exception {
+		User user = userService.getEntity(1);
+		LOG.info(user);
+	}
+
+	@Test
+	public void updateUser() throws Exception {
+		UserVo userVo = new UserVo();
+		userVo.setId(1);
+		userVo.setUserName("优酷用户1468567979014259update");
+		userService.updateUser(userVo);
 	}
 
 }
