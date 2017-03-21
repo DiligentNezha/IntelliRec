@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -114,6 +115,20 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	public void deleteEntity(T t) {
 		getCurrentSession().delete(t);
 	}
+
+	/**
+	 * 根据对象id删除实体对象
+	 *
+	 * @param id 序列化实体id
+	 */
+	@Override
+	public void deleteEntity(Serializable id) {
+		String hql = "delete from " + clazz.getSimpleName() + " t where t.id = :id";
+		Map<String, Object> params = new HashMap();
+		params.put("id", id);
+		batchEntityByHQL(hql, params);
+	}
+
 
 	/**
 	 * 刷新实体对象
