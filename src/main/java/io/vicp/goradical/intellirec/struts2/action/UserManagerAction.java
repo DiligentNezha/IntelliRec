@@ -2,6 +2,7 @@ package io.vicp.goradical.intellirec.struts2.action;
 
 import com.alibaba.fastjson.JSON;
 import io.vicp.goradical.intellirec.model.pmrs.User;
+import io.vicp.goradical.intellirec.model.pmrs.vo.JsonVo;
 import io.vicp.goradical.intellirec.model.pmrs.vo.TableVo;
 import io.vicp.goradical.intellirec.model.pmrs.vo.UserVo;
 import io.vicp.goradical.intellirec.service.UserService;
@@ -38,16 +39,20 @@ public class UserManagerAction extends BaseAction<UserVo> {
 		return SUCCESS;
 	}
 
+	public void getUser() {
+		UserVo userVo = us.getUser(model.getId());
+		super.writeJson(userVo);
+	}
+
 	public void deleteUser() {
-		User user = new User();
-		user.setId(model.getId());
-		us.deleteEntity(user);
+		us.deleteEntity(model.getId());
 	}
 
 	public void updateUser() {
-		User user = new User();
-		BeanUtils.copyProperties(model, user);
-		us.updateEntity(user);
+		us.updateUser(model);
+		JsonVo jsonVo = new JsonVo();
+		jsonVo.setSuccess(true);
+		super.writeJson(jsonVo);
 	}
 
 	public void addUser() {
