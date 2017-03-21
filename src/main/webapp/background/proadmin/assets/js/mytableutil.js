@@ -35,8 +35,8 @@ $(function () {
       }
       newTr.append('<td id="td"' + j + ' class="pmd-table-row-action"></td>');
       var last = $('#tr_' + i + ' > td').last();
-      last.append('<a href="javascript:userEdit(' + rows[i][columns[0].filed] + ');" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm"><i class="material-icons md-dark pmd-sm">edit</i></a>');
-      last.append('<a href="javascript:userDelete(' + rows[i][columns[0].filed] + ');" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm"><i class="material-icons md-dark pmd-sm">delete</i></a>');
+      last.append('<button data-target="#bg_user_usereditformdialog" data-toggle="modal" onclick="userEdit(' + rows[i][columns[0].filed] + ');" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm"><i class="material-icons md-dark pmd-sm">edit</i></button>');
+      last.append('<button onclick="userDelete(' + rows[i][columns[0].filed] + ');" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm"><i class="material-icons md-dark pmd-sm">delete</i></>');
     }
     updatePageComponInfo(data, pager);
   };
