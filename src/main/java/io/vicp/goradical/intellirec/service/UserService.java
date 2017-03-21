@@ -4,6 +4,8 @@ import io.vicp.goradical.intellirec.model.pmrs.User;
 import io.vicp.goradical.intellirec.model.pmrs.vo.TableVo;
 import io.vicp.goradical.intellirec.model.pmrs.vo.UserVo;
 
+import java.io.Serializable;
+
 /**
  * Created by Kenny on 2017/3/6.
  */
@@ -22,4 +24,17 @@ public interface UserService extends BaseService<User>{
 	 * @return 用户数据的数据表格模型
 	 */
 	TableVo<UserVo> tableData(UserVo userVo);
+
+	/**
+	 * 根据用户Id获取用户对象
+	 * @param id 用户id
+	 * @return
+	 */
+	UserVo getUser(Serializable id);
+
+	/**
+	 * 更新用户
+	 * @param userVo
+	 */
+	void updateUser(UserVo userVo);
 }

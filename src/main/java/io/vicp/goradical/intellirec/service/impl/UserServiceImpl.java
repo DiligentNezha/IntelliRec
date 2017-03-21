@@ -5,10 +5,12 @@ import io.vicp.goradical.intellirec.model.pmrs.User;
 import io.vicp.goradical.intellirec.model.pmrs.vo.TableVo;
 import io.vicp.goradical.intellirec.model.pmrs.vo.UserVo;
 import io.vicp.goradical.intellirec.service.UserService;
+import io.vicp.goradical.intellirec.util.ObjectUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +56,21 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		userVoTableVo.setRecordsTotal((Long) userDao.uniqueResult(countHql, params));
 		userVoTableVo.setRows(userVoList);
 		return userVoTableVo;
+	}
+
+	@Override
+	public UserVo getUser(Serializable id) {
+		User user = getEntity(id);
+		UserVo userVo = new UserVo();
+		BeanUtils.copyProperties(user, userVo);
+		return userVo;
+	}
+
+	@Override
+	public void updateUser(UserVo userVo) {
+		User user = getEntity(userVo.getId());
+		BeanUtils.copyProperties(userVo, user, ObjectUtil.convertListToArray(ObjectUtil.getNullField(userVo)));
+		saveOrUpdateEntity(user);
 	}
 
 	private String addWhere(UserVo userVo, String hql, Map<String, Object> params) {
