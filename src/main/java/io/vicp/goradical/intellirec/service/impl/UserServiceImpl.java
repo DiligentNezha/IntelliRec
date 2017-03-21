@@ -69,7 +69,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	@Override
 	public void updateUser(UserVo userVo) {
 		User user = getEntity(userVo.getId());
-		BeanUtils.copyProperties(userVo, user, ObjectUtil.convertListToArray(ObjectUtil.getNullField(userVo)));
+		BeanUtils.copyProperties(userVo, user, ObjectUtil.getNullField(userVo));
 		saveOrUpdateEntity(user);
 	}
 
