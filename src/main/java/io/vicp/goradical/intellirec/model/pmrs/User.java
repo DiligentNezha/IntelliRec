@@ -13,6 +13,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "t_user", indexes = {
+		@Index(name = "fk_user_name", columnList = "user_name"),
 		@Index(name = "fk_email", columnList = "email", unique = true),
 		@Index(name = "fk_password", columnList = "password")})
 public class User extends BaseEntity{
