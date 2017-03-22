@@ -1,4 +1,4 @@
-package io.vicp.goradical.intellirec.struts2;
+package io.vicp.goradical.intellirec.struts2.action.user;
 
 
 import io.vicp.goradical.intellirec.model.pmrs.User;
