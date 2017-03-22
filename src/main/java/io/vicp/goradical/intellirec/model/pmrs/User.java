@@ -1,6 +1,7 @@
 package io.vicp.goradical.intellirec.model.pmrs;
 
 import io.vicp.goradical.intellirec.model.BaseEntity;
+import io.vicp.goradical.intellirec.model.security.Role;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -140,6 +141,27 @@ public class User extends BaseEntity{
 	 */
 	@OneToMany(mappedBy = "user")
 	private Set<UserRecommend> userRecommends = new HashSet<>();
+
+	/**
+	 * 角色集合User 与 Role 之间存在多对多关联，采用双向多对多关联
+	 */
+	@ManyToMany
+	@JoinTable(name = "t_user_role_link",
+			joinColumns = @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id")),
+			inverseJoinColumns = @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "fk_role_id")))
+	private Set<Role> roles = new HashSet<>();
+
+	/**
+	 * 权限总和
+	 */
+	@Transient
+	private long[] rightSum;
+
+	/**
+	 *
+	 * 是否是超级管理员
+	 */
+	private boolean superAdmin;
 
 	@Override
 	public Integer getId() {
@@ -285,5 +307,29 @@ public class User extends BaseEntity{
 
 	public void setUserRecommends(Set<UserRecommend> userRecommends) {
 		this.userRecommends = userRecommends;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public long[] getRightSum() {
+		return rightSum;
+	}
+
+	public void setRightSum(long[] rightSum) {
+		this.rightSum = rightSum;
+	}
+
+	public boolean isSuperAdmin() {
+		return superAdmin;
+	}
+
+	public void setSuperAdmin(boolean superAdmin) {
+		this.superAdmin = superAdmin;
 	}
 }
