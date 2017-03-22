@@ -70,7 +70,7 @@
     <li class="dropdown pmd-dropdown">
       <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
         <i class="material-icons media-left pmd-sm">swap_calls</i>
-        <span class="media-body">Third Party Elements</span>
+        <span class="media-body">视频模块</span>
         <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
       </a>
       <ul class="dropdown-menu">
@@ -88,7 +88,7 @@
 	L11.211,14.764z M11.211,11.585H2.948V9.563h8.263V11.585L11.211,11.585z M11.211,8.407H7.455V6.385h3.756V8.407z M11.211,5.229
 	H7.455V3.207h3.756V5.229z"/>
 </svg></i>
-        <span class="media-body">Form</span>
+        <span class="media-body">报表模块</span>
         <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
       </a>
       <ul class="dropdown-menu">
@@ -103,7 +103,7 @@
 	 M1.059,8.47h6.99v3.177h-6.99V8.47z M9.108,11.647V8.47h3.599v3.177H9.108z M13.766,11.647V8.47h3.176v3.177H13.766z M16.942,7.412
 	h-3.176V4.235h3.176V7.412L16.942,7.412z"/>
 </svg></i>
-        <span class="media-body">Table</span>
+        <span class="media-body">权限模块</span>
         <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
       </a>
       <ul class="dropdown-menu">
