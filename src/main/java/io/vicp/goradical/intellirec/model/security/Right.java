@@ -21,12 +21,22 @@ public class Right extends BaseEntity {
 	@Column(columnDefinition = "int(11) unsigned")
 	private Integer id;
 
+	@Column(name = "right_name")
 	private String rightName = "未命名";
+
+	@Column(name = "right_url")
 	private String rightUrl;
+
+	@Column(name = "right_desc")
 	private String rightDesc;
+
+	@Column(name = "right_code")
 	private long rightCode;// 权限码,1<<n
+
+	@Column(name = "right_pos")
 	private int rightPos; // 权限位,相当于对权限分组,从0开始
 	//是否是公共资源
+
 	private boolean common;
 
 	/**

@@ -22,8 +22,13 @@ public class Role extends BaseEntity {
 	@Column(columnDefinition = "int(11) unsigned")
 	private Integer id;
 
+	@Column(name = "role_name")
 	private String roleName;
+
+	@Column(name = "role_value")
 	private String roleValue;
+
+	@Column(name = "role_desc")
 	private String roleDesc;
 
 	/**
