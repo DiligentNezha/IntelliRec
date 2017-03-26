@@ -1,5 +1,10 @@
 package io.vicp.goradical.intellirec.model.pmrs.vo;
 
+import io.vicp.goradical.intellirec.model.security.Right;
+import io.vicp.goradical.intellirec.model.security.Role;
+
+import java.util.Set;
+
 /**
  * Created by Kenny on 2017/3/13.
  */
@@ -24,6 +29,11 @@ public class UserVo extends BaseVo{
 
 	private String headPhotoLarge;
 
+	private long[] rightSum;
+
+	private boolean superAdmin;
+
+	private Set<Role> roles;
 	//扩展字段
 	private int page = 1;
 
@@ -115,5 +125,56 @@ public class UserVo extends BaseVo{
 
 	public void setRows(int rows) {
 		this.rows = rows;
+	}
+
+	public long[] getRightSum() {
+		return rightSum;
+	}
+
+	public void setRightSum(long[] rightSum) {
+		this.rightSum = rightSum;
+	}
+
+	public boolean isSuperAdmin() {
+		return superAdmin;
+	}
+
+	public void setSuperAdmin(boolean superAdmin) {
+		this.superAdmin = superAdmin;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	/**
+	 * 计算用户权限总和
+	 */
+	public void calculateRightSum() {
+		int pos;
+		long code;
+		for (Role role : roles) {
+			//判断是否是超级管理员
+			if ("-1".equals(role.getRoleValue())) {
+				superAdmin = true;
+				return;
+			}
+			for (Right right : role.getRights()) {
+				pos = right.getRightPos();
+				code = right.getRightCode();
+				rightSum[pos] = rightSum[pos] | code;
+			}
+		}
+	}
+
+	//判断用户是否拥有指定权限
+	public boolean hasRight(Right right) {
+		int pos = right.getRightPos();
+		long code = right.getRightCode();
+		return !((rightSum[pos] & code) == 0);
 	}
 }

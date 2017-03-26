@@ -1,6 +1,7 @@
 package io.vicp.goradical.intellirec.model.pmrs;
 
 import io.vicp.goradical.intellirec.model.BaseEntity;
+import io.vicp.goradical.intellirec.model.security.Right;
 import io.vicp.goradical.intellirec.model.security.Role;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -331,5 +332,32 @@ public class User extends BaseEntity{
 
 	public void setSuperAdmin(boolean superAdmin) {
 		this.superAdmin = superAdmin;
+	}
+
+	/**
+	 * 计算用户权限总和
+	 */
+	public void calculateRightSum() {
+		int pos;
+		long code;
+		for (Role role : roles) {
+			//判断是否是超级管理员
+			if ("-1".equals(role.getRoleValue())) {
+				superAdmin = true;
+				return;
+			}
+			for (Right right : role.getRights()) {
+				pos = right.getRightPos();
+				code = right.getRightCode();
+				rightSum[pos] = rightSum[pos] | code;
+			}
+		}
+	}
+
+	//判断用户是否拥有指定权限
+	public boolean hasRight(Right right) {
+		int pos = right.getRightPos();
+		long code = right.getRightCode();
+		return !((rightSum[pos] & code) == 0);
 	}
 }
