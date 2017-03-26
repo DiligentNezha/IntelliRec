@@ -47,7 +47,12 @@ public class BaseVo implements Serializable {
 					//是否是基本数据类型
 					buffer.append(fname);
 					buffer.append(":");
-					Method method = clazz.getMethod("get" + StringUtil.toUpCaseFirstChar(fname));
+					Method method;
+					if (ftype == Boolean.class) {
+						method = clazz.getMethod("is" + StringUtil.toUpCaseFirstChar(fname));
+					} else {
+						method = clazz.getMethod("get" + StringUtil.toUpCaseFirstChar(fname));
+					}
 					fvalue = method.invoke(this);
 					buffer.append(fvalue);
 					buffer.append(", ");
