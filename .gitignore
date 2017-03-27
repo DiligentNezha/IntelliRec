@@ -89,3 +89,5 @@ crashlytics-build.properties
 fabric.properties
 
 /src/test/
+/src/test/java/io/vicp/goradical/intellirec/dao/impl/CommentRecordDaoImplTest.java
+/src/test/java/io/vicp/goradical/intellirec/dao/impl/RightDaoImplTest.java
