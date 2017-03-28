@@ -71,7 +71,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	public UserVo getUser(Serializable id) {
 		User user = getEntity(id);
 		UserVo userVo = new UserVo();
-		BeanUtils.copyProperties(user, userVo);
+		BeanUtils.copyProperties(user, userVo, "roles");
 		return userVo;
 	}
 
