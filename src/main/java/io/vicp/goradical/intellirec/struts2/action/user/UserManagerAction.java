@@ -1,6 +1,5 @@
 package io.vicp.goradical.intellirec.struts2.action.user;
 
-import com.alibaba.fastjson.JSON;
 import io.vicp.goradical.intellirec.model.pmrs.User;
 import io.vicp.goradical.intellirec.model.pmrs.vo.JsonVo;
 import io.vicp.goradical.intellirec.model.pmrs.vo.TableVo;
@@ -29,14 +28,15 @@ public class UserManagerAction extends BaseAction<UserVo> {
 	public void tableData() {
 		TableVo<UserVo> userVoTableVo = us.tableData(model);
 		super.writeJson(userVoTableVo);
+
 	}
 
 	@Action(value = "userManagerAction_toUserInfoManagerPage", results = {
 			@Result(name = SUCCESS, location = "/background/user/user-info-manager.jsp")})
 	public String toUserInfoManagerPage() {
-		TableVo<UserVo> userVoTableVo = us.tableData(model);
-		String jsonStr = JSON.toJSONStringWithDateFormat(userVoTableVo, "yyyy-MM-dd HH:mm:ss");
-		getRequest().setAttribute("jsonStr", jsonStr);
+//		TableVo<UserVo> userVoTableVo = us.tableData(model);
+// 		String jsonStr = JSON.toJSONStringWithDateFormat(userVoTableVo, "yyyy-MM-dd HH:mm:ss");
+//		getRequest().setAttribute("jsonStr", jsonStr);
 		return SUCCESS;
 	}
 
