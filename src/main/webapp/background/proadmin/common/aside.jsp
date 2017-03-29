@@ -74,9 +74,9 @@
         <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
       </a>
       <ul class="dropdown-menu">
-        <li><a href="${pageContext.request.contextPath}/videoManager/videoManagerAction_toVideoInfoManagerPage">视频信息管理</a></li>
-        <li><a href="${pageContext.request.contextPath}/videoManager/actorManagerAction_toActorInfoManagerPage">演员信息管理</a></li>
-        <li><a href="${pageContext.request.contextPath}/videoManager/directorManagerAction_toDirectorInfoManagerPage">导演信息管理</a></li>
+        <li><a href="custom-scroll.jsp">Custom Scrollbar</a></li>
+        <li><a href="datetimepicker.jsp">Datetimepicker</a></li>
+        <li><a href="range-slider.jsp">Range Slider</a></li>
         <li><a href="select2.jsp">Select2</a></li>
       </ul>
     </li>

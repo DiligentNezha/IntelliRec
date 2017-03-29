@@ -28,7 +28,6 @@ public class UserManagerAction extends BaseAction<UserVo> {
 	public void tableData() {
 		TableVo<UserVo> userVoTableVo = us.tableData(model);
 		super.writeJson(userVoTableVo);
-
 	}
 
 	@Action(value = "userManagerAction_toUserInfoManagerPage", results = {
