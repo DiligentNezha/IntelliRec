@@ -12,5 +12,32 @@
 	<constant name="struts.devMode" value="true" />
 
 	<package name="basePackage" extends="struts-default">
+		<interceptors>
+			<!-- 权限过滤拦截器 -->
+			<interceptor name="rightFilterInterceptor"
+			             class="io.vicp.goradical.intellirec.struts2.interceptor.RightFilterInterceptor"></interceptor>
+			<!-- 捕获Url拦截器-->
+			<interceptor name="catchUrlInterceptor"
+			             class="io.vicp.goradical.intellirec.struts2.interceptor.CatchUrlInterceptor"></interceptor>
+			<!-- 定义拦截器栈-->
+			<interceptor-stack name="intelliRecStack">
+				<interceptor-ref name="catchUrlInterceptor"></interceptor-ref>
+				<interceptor-ref name="rightFilterInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack">
+					<param name="modelDriven.refreshModelBeforeResult">true</param>
+					<!-- 10MB -->
+					<param name="fileUpload.maximumSize">10485760</param>
+					<param name="fileUpload.allowedExtensions">.jpg,.jpeg,.png,.bmp,.gif</param>
+					<param name="fileUpload.allowedTypes">image/jpg,image/jpeg,image/png,image/gif,image/bmp</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- 定义默认栈 -->
+		<default-interceptor-ref name="intelliRecStack"></default-interceptor-ref>
+		<!-- 定义全局结果 -->
+		<global-results>
+			<result name="login">/background/login.jsp</result>
+		</global-results>
 	</package>
 </struts>
