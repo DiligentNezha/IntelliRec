@@ -34,9 +34,6 @@ public class UserManagerAction extends BaseAction<UserVo> {
 	@Action(value = "userManagerAction_toUserInfoManagerPage", results = {
 			@Result(name = SUCCESS, location = "/background/user/user-info-manager.jsp")})
 	public String toUserInfoManagerPage() {
-//		TableVo<UserVo> userVoTableVo = us.tableData(model);
-// 		String jsonStr = JSON.toJSONStringWithDateFormat(userVoTableVo, "yyyy-MM-dd HH:mm:ss");
-//		getRequest().setAttribute("jsonStr", jsonStr);
 		return SUCCESS;
 	}
 

@@ -3,6 +3,7 @@ package io.vicp.goradical.intellirec.struts2.action.user;
 import com.opensymphony.xwork2.ActionContext;
 import io.vicp.goradical.intellirec.model.pmrs.vo.JsonVo;
 import io.vicp.goradical.intellirec.model.pmrs.vo.UserVo;
+import io.vicp.goradical.intellirec.service.RightService;
 import io.vicp.goradical.intellirec.service.UserService;
 import io.vicp.goradical.intellirec.struts2.action.BaseAction;
 import org.apache.logging.log4j.LogManager;
@@ -22,13 +23,12 @@ public class UserAction extends BaseAction<UserVo> {
 	@Autowired
 	private UserService us;
 
-	public void hello() {
-		LOG.info("hello");
-	}
+	@Autowired
+	private RightService rs;
 
 	@Action(value = "userAction_login", results = {
 			@Result(name = SUCCESS, location = "/background/index.jsp"),
-			@Result(name = INPUT, location = "/background/login.jsp")})
+			@Result(name = LOGIN, location = "/background/login.jsp")})
 	public String login() {
 		String email = model.getEmail();
 		String password = model.getPassword();
@@ -42,8 +42,9 @@ public class UserAction extends BaseAction<UserVo> {
 			return SUCCESS;
 		} else {
 			jsonVo.setMsg("用户名或密码错误!");
-			return INPUT;
+			return LOGIN;
 		}
+
 	}
 
 

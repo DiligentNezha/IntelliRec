@@ -1,6 +1,8 @@
 package io.vicp.goradical.intellirec.model.pmrs;
 
 import io.vicp.goradical.intellirec.model.BaseEntity;
+import io.vicp.goradical.intellirec.model.security.Right;
+import io.vicp.goradical.intellirec.model.security.Role;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -140,6 +142,27 @@ public class User extends BaseEntity{
 	 */
 	@OneToMany(mappedBy = "user")
 	private Set<UserRecommend> userRecommends = new HashSet<>();
+
+	/**
+	 * 角色集合User 与 Role 之间存在多对多关联，采用双向多对多关联
+	 */
+	@ManyToMany
+	@JoinTable(name = "t_user_role_link",
+			joinColumns = @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id")),
+			inverseJoinColumns = @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "fk_role_id")))
+	private Set<Role> roles = new HashSet<>();
+
+	/**
+	 * 权限总和
+	 */
+	@Transient
+	private long[] rightSum;
+
+	/**
+	 *
+	 * 是否是超级管理员
+	 */
+	private boolean superAdmin;
 
 	@Override
 	public Integer getId() {
@@ -285,5 +308,56 @@ public class User extends BaseEntity{
 
 	public void setUserRecommends(Set<UserRecommend> userRecommends) {
 		this.userRecommends = userRecommends;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public long[] getRightSum() {
+		return rightSum;
+	}
+
+	public void setRightSum(long[] rightSum) {
+		this.rightSum = rightSum;
+	}
+
+	public boolean isSuperAdmin() {
+		return superAdmin;
+	}
+
+	public void setSuperAdmin(boolean superAdmin) {
+		this.superAdmin = superAdmin;
+	}
+
+	/**
+	 * 计算用户权限总和
+	 */
+	public void calculateRightSum() {
+		int pos;
+		long code;
+		for (Role role : roles) {
+			//判断是否是超级管理员
+			if ("-1".equals(role.getRoleValue())) {
+				superAdmin = true;
+				return;
+			}
+			for (Right right : role.getRights()) {
+				pos = right.getRightPos();
+				code = right.getRightCode();
+				rightSum[pos] = rightSum[pos] | code;
+			}
+		}
+	}
+
+	//判断用户是否拥有指定权限
+	public boolean hasRight(Right right) {
+		int pos = right.getRightPos();
+		long code = right.getRightCode();
+		return !((rightSum[pos] & code) == 0);
 	}
 }

@@ -215,6 +215,18 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	}
 
 	/**
+	 * 获取所有实体对象
+	 *
+	 * @return
+	 */
+	@Override
+	public List<T> findAllEntities() {
+		String hql = "from " + clazz.getSimpleName();
+		return findEntityByHQL(hql);
+	}
+
+
+	/**
 	 * 通过 Query 检索实体对象
 	 *
 	 * @param hql hql 语句

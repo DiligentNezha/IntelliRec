@@ -1,5 +1,6 @@
 package io.vicp.goradical.intellirec.service.impl;
 
+import io.vicp.goradical.intellirec.dao.RightDao;
 import io.vicp.goradical.intellirec.dao.UserDao;
 import io.vicp.goradical.intellirec.model.pmrs.User;
 import io.vicp.goradical.intellirec.model.pmrs.vo.TableVo;
@@ -25,11 +26,19 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	@Autowired
 	private UserDao userDao;
 
+	@Autowired
+	private RightDao rightDao;
+
 	@Override
 	public UserVo login(String email, String password) {
 		User user = userDao.login(email, password);
 		UserVo userVo = null;
 		if (user != null) {
+			//初始化权限总和数组
+			int maxPos = rightDao.getMaxRightPos();
+			user.setRightSum(new long[maxPos + 1]);
+			//计算用户权限总和
+			user.calculateRightSum();
 			userVo = new UserVo();
 			BeanUtils.copyProperties(user, userVo);
 		}
@@ -50,7 +59,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 			UserVo userVoTemp = new UserVo();
 			userVoTemp.setPage(userVo.getPage());
 			userVoTemp.setRows(userVo.getRows());
-			BeanUtils.copyProperties(user, userVoTemp);
+			BeanUtils.copyProperties(user, userVoTemp, "roles");
 			userVoList.add(userVoTemp);
 		}
 		userVoTableVo.setRecordsTotal((Long) userDao.uniqueResult(countHql, params));
@@ -62,7 +71,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	public UserVo getUser(Serializable id) {
 		User user = getEntity(id);
 		UserVo userVo = new UserVo();
-		BeanUtils.copyProperties(user, userVo);
+		BeanUtils.copyProperties(user, userVo, "roles");
 		return userVo;
 	}
 

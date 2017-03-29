@@ -141,6 +141,12 @@ public interface BaseDao<T> {
 	//读操作
 
 	/**
+	 * 获取所有实体对象
+	 * @return
+	 */
+	List<T> findAllEntities();
+
+	/**
 	 * 通过 Query 检索实体对象
 	 *
 	 * @param hql hql 语句

@@ -351,7 +351,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	@Override
 	public List<T> findAllEntities() {
-		String hql = "from " + clazz.getSimpleName();
-		return findEntityByHQL(hql);
+		return baseDao.findAllEntities();
 	}
 }
