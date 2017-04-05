@@ -48,7 +48,7 @@ public class BaseVo implements Serializable {
 					buffer.append(fname);
 					buffer.append(":");
 					Method method;
-					if (ftype == Boolean.class) {
+					if (ftype.getSimpleName() .equalsIgnoreCase("boolean")) {
 						method = clazz.getMethod("is" + StringUtil.toUpCaseFirstChar(fname));
 					} else {
 						method = clazz.getMethod("get" + StringUtil.toUpCaseFirstChar(fname));

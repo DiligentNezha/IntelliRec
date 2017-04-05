@@ -16,17 +16,20 @@ public class ObjectUtil {
 		Field[] declaredFields = clz.getDeclaredFields();
 		for (Field df : declaredFields) {
 			Class<?> type = df.getType();
-			if (type != Boolean.class) {
-				try {
-					Method method = clz.getDeclaredMethod("get" + StringUtil.toUpCaseFirstChar(df.getName()));
-					method.setAccessible(true);
-					Object value = method.invoke(object);
-					if (value == null) {
-						fields.add(df.getName());
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+			Method method = null;
+			try {
+				if (type.getSimpleName() .equalsIgnoreCase("boolean")) {
+					method = clz.getDeclaredMethod("is" + StringUtil.toUpCaseFirstChar(df.getName()));
+				} else {
+					method = clz.getDeclaredMethod("get" + StringUtil.toUpCaseFirstChar(df.getName()));
 				}
+				method.setAccessible(true);
+				Object value = method.invoke(object);
+				if (value == null) {
+					fields.add(df.getName());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		String[] strs = new String[fields.size()];
